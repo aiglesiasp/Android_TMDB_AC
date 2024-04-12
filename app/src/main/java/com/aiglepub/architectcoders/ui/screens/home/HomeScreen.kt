@@ -1,5 +1,7 @@
 package com.aiglepub.architectcoders.ui.screens.home
 
+import android.Manifest
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,25 +20,53 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.aiglepub.architectcoders.R
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
+import com.aiglepub.architectcoders.ui.common.PermissionRequestEffect
+import com.aiglepub.architectcoders.ui.common.getRegion
 import com.aiglepub.architectcoders.ui.screens.Movie
 import com.aiglepub.architectcoders.ui.screens.movies
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onClick: (Movie) -> Unit) {
+
+    val ctx: Context = LocalContext.current
+    val appName = stringResource(id = R.string.app_name)
+    var appBarTitle by remember { mutableStateOf(appName) }
+    val coroutineScope = rememberCoroutineScope()
+
+    PermissionRequestEffect(permission = Manifest.permission.ACCESS_COARSE_LOCATION) {granted ->
+        if(granted) {
+            coroutineScope.launch {
+                val region = ctx.getRegion()
+                appBarTitle = "$appName ($region)"
+            }
+        } else {
+            appBarTitle = "$appName (Permission denied)"
+        }
+    }
+    
     ScreenAppTheme {
         var scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Movies") },
+                    title = { Text(text = appBarTitle) },
                     scrollBehavior = scrollBehavior
                 )
             },
