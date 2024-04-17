@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.ui.screens
+package com.aiglepub.architectcoders.ui.data
 
 data class Movie(
     val id: Int,

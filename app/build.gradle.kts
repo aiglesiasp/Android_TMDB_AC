@@ -1,6 +1,9 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 android {
@@ -18,7 +21,20 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties()
+        properties.load(
+            project
+                .rootProject
+                .file("local.properties")
+                .readText()
+                .byteInputStream())
+
+        val tmdbApiKey = properties.getProperty("TMDB_API_KEY", "")
+        buildConfigField("String", "TMDB_API_KEY", "\"$tmdbApiKey\"")
     }
+
+
 
     buildTypes {
         release {
@@ -38,6 +54,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.11"
@@ -70,4 +87,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation (libs.androidx.material.icons.extended)
     implementation(libs.androidx.navigation.compose)
+    implementation (libs.retrofit)
+    implementation(libs.retrofit.converter.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.json)
 }
