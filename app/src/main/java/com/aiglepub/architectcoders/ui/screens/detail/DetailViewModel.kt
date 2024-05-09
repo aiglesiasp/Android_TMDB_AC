@@ -6,11 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val id: Int): ViewModel() {
-    private val repository = MoviesRepository()
+    private val repository = MoviesRepository(MoviesClient.instance)
     var state by mutableStateOf(UiState())
         private set
 

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
 import kotlinx.coroutines.launch
 
@@ -15,7 +16,7 @@ class HomeViewModel: ViewModel() {
     var state by mutableStateOf(UiState())
         private set
 
-    private val repository = MoviesRepository()
+    private val repository = MoviesRepository(MoviesClient.instance)
 
     fun onUiReady(region: String) {
         viewModelScope.launch {
