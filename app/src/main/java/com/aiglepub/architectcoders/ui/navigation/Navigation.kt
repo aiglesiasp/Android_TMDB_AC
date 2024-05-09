@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
-import com.aiglepub.architectcoders.ui.data.movies
+import com.aiglepub.architectcoders.data.movies
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
 
 @Composable

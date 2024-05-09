@@ -42,7 +42,7 @@ import com.aiglepub.architectcoders.R
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.PermissionRequestEffect
 import com.aiglepub.architectcoders.ui.common.getRegion
-import com.aiglepub.architectcoders.ui.data.Movie
+import com.aiglepub.architectcoders.data.Movie
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

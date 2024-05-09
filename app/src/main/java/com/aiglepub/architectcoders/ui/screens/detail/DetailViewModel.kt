@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aiglepub.architectcoders.ui.data.Movie
-import com.aiglepub.architectcoders.ui.data.MoviesRepository
+import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.data.MoviesRepository
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val id: Int): ViewModel() {

@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.ui.data
+package com.aiglepub.architectcoders.data
 
 import com.aiglepub.architectcoders.BuildConfig
 import kotlinx.serialization.json.Json
@@ -12,7 +12,7 @@ import retrofit2.create
 object MoviesClient {
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor { apiKeyAsQuery(it)}
+        .addInterceptor { apiKeyAsQuery(it) }
         .build()
 
     private val json = Json {
