@@ -1,21 +1,15 @@
 package com.aiglepub.architectcoders.data
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
-
-class MoviesRepository {
+class MoviesRepository(private val movieService: MovieService) {
 
     suspend fun fetchPopularMovies(region: String): List<Movie> =
-        MoviesClient
-            .instance
+        movieService
             .fetchPopularMovies(region)
             .results
             .map { it.toDomainModel() }
 
     suspend fun findMovieById(id: Int): Movie =
-        MoviesClient
-            .instance
+        movieService
             .fetchMovieById(id)
             .toDomainModel()
 }
