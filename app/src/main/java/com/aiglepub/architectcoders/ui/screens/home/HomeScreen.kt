@@ -20,6 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,8 +69,8 @@ fun HomeScreen(onClick: (Movie) -> Unit,
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
         ) { paddingValues ->
+            val state by vm.state.collectAsState()
 
-            val state = vm.state
             if(state.loading) {
                LoadingProgressIndicator(modifier = Modifier.padding(paddingValues))
             }

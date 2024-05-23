@@ -8,20 +8,27 @@ import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {
 
-    //Creo Variable de Estado
-    var state by mutableStateOf(UiState())
-        private set
+    //Variable de Estado Antigua
+    //var state by mutableStateOf(UiState())
+    //    private set
+
+    // Variable de Estado con Flows
+    private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    val state: StateFlow<UiState> = _state.asStateFlow()
 
     private val repository = MoviesRepository(MoviesClient.instance)
 
     fun onUiReady(region: String) {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(loading = false, movies = repository.fetchPopularMovies(region))
+            _state.value = UiState(loading = true)
+            _state.value = UiState(loading = false, movies = repository.fetchPopularMovies(region))
         }
     }
 
@@ -30,5 +37,4 @@ class HomeViewModel: ViewModel() {
         val loading: Boolean = false,
         val movies: List<Movie> = emptyList()
     )
-
 }
