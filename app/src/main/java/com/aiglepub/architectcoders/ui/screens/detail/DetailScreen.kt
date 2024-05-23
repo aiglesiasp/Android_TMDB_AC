@@ -1,7 +1,6 @@
 package com.aiglepub.architectcoders.ui.screens.detail
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +18,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -28,10 +29,9 @@ import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
-    val state = vm.state
+    val state by vm.state.collectAsState()
 
     ScreenAppTheme {
         Scaffold(
@@ -50,7 +50,6 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
             }
         }
     }
-
 }
 
 @Composable
