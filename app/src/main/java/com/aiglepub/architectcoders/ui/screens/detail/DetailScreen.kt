@@ -1,41 +1,77 @@
 package com.aiglepub.architectcoders.ui.screens.detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.StarHalf
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
+
     val state by vm.state.collectAsState()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     ScreenAppTheme {
         Scaffold(
-            topBar = { DetailTopBar(state.movie?.title ?: "", onBack) },
+            topBar = {
+                DetailTopBar(
+                    title = state.movie?.title ?: "",
+                    scrollBehavior = scrollBehavior,
+                    onBack = onBack
+                )
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { vm.onFavoriteClick() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.FavoriteBorder,
+                        contentDescription = "Arrow Favorite"
+                    )
+                }
+            },
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
         ) { paddingValues ->
 
@@ -62,7 +98,7 @@ private fun MovieDetail(
             .verticalScroll(rememberScrollState())
     ) {
         AsyncImage(
-            model = movie.poster,
+            model = movie.backdrop,
             contentDescription = movie.title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -70,10 +106,33 @@ private fun MovieDetail(
                 .aspectRatio(16 / 12f)
         )
         Text(
-            text = movie.title,
-            modifier = Modifier.padding(16.dp),
-            style = MaterialTheme.typography.headlineMedium
+            text = movie.overview,
+            modifier = Modifier.padding(16.dp)
         )
+
+        Text(
+            text = buildAnnotatedString {
+                Property("Original Title", movie.originalTitle)
+                Property("Original Language", movie.originalLanguage)
+                Property("Release Date", movie.releaseDate)
+                Property("Popularity", movie.popularity.toString())
+                Property("Vote Average", movie.voteAverage.toString(), end = true)
+            },
+            modifier = Modifier.fillMaxWidth().background(color = MaterialTheme.colorScheme.secondaryContainer).padding(16.dp)
+        )
+    }
+}
+
+@Composable
+private fun AnnotatedString.Builder.Property(name: String, value: String, end: Boolean = false) {
+    withStyle(ParagraphStyle(lineHeight = 18.sp)) {
+        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+            append("$name: ")
+        }
+        append(value)
+        if (!end) {
+            append("\n")
+        }
     }
 }
 
@@ -81,6 +140,7 @@ private fun MovieDetail(
 @OptIn(ExperimentalMaterial3Api::class)
 private fun DetailTopBar(
     title: String,
+    scrollBehavior: TopAppBarScrollBehavior,
     onBack: () -> Unit
 ) {
     TopAppBar(
@@ -92,6 +152,7 @@ private fun DetailTopBar(
                     contentDescription = "Arrow back"
                 )
             }
-        }
+        },
+        scrollBehavior = scrollBehavior
     )
 }

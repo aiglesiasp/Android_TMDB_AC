@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val id: Int): ViewModel() {
+
     private val repository = MoviesRepository(MoviesClient.instance)
     //var state by mutableStateOf(UiState())
     //    private set
@@ -28,4 +29,8 @@ class DetailViewModel(private val id: Int): ViewModel() {
         val loading: Boolean = false,
         val movie: Movie? = null
     )
+
+    fun onFavoriteClick() {
+        TODO("Not yet implemented")
+    }
 }
