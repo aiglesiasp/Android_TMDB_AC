@@ -32,7 +32,7 @@ fun Navigation() {
             val detail = backStackEntry.toRoute<Detail>()
             DetailScreen(
                 vm = viewModel { DetailViewModel(detail.movieId) } ,
-                onBack = { navController.popBackStack(route = Home, inclusive = true)}
+                onBack = { navController.popBackStack(route = Home, inclusive = false)}
             )
         }
     }

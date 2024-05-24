@@ -118,5 +118,18 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
 @Preview
 @Composable
 private fun MovieItem_Preview() {
-    MovieItem(movie = Movie(1, "Titulo", "Poster"), onClick = {})
+    MovieItem(
+        movie = Movie(
+            id = 1,
+            title = "Titulo",
+            overview = "",
+            releaseDate = "",
+            poster = "",
+            backdrop = "",
+            originalTitle = "",
+            originalLanguage = "",
+            voteAverage = 0.0,
+            popularity = 0.0,
+            ),
+        onClick = {})
 }
