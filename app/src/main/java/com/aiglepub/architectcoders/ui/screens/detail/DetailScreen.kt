@@ -57,9 +57,8 @@ import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
 fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
 
     val state by vm.state.collectAsState()
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val lifecycle = LocalLifecycleOwner.current
-    val snackbarHostState = remember { SnackbarHostState() }
+    val detailState = rememberDetailState()
 
     /// ESCUCHAR EVENTOS
     /*
@@ -78,21 +77,12 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
         }
     }*/
 
-    ///Escuchar el cambio de click en favorito
-    LaunchedEffect(state.message) {
-        state.message?.let { message ->
-            snackbarHostState.currentSnackbarData?.dismiss()
-            snackbarHostState.showSnackbar(message)
-            vm.onMessageShown()
-        }
-    }
-
     ScreenAppTheme {
         Scaffold(
             topBar = {
                 DetailTopBar(
                     title = state.movie?.title ?: "",
-                    scrollBehavior = scrollBehavior,
+                    scrollBehavior = detailState.scrollBehavior,
                     onBack = onBack
                 )
             },
@@ -106,8 +96,8 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
                     )
                 }
             },
-            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            snackbarHost = { SnackbarHost(hostState = detailState.snackbarHostState) },
+            modifier = Modifier.nestedScroll(detailState.scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
         ) { paddingValues ->
 
