@@ -20,13 +20,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -39,6 +43,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.data.Movie
@@ -51,6 +58,34 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
 
     val state by vm.state.collectAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val lifecycle = LocalLifecycleOwner.current
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    /// ESCUCHAR EVENTOS
+    /*
+    LaunchedEffect(vm, lifecycle) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            vm.events.collect { event ->
+                when (event) {
+                    is DetailViewModel.UiEvent.ShowMessage -> {
+                        //Eliminar lo que hubiera en el SnackBar
+                        snackbarHostState.currentSnackbarData?.dismiss()
+                        //Show Message
+                        snackbarHostState.showSnackbar(event.message)
+                    }
+                }
+            }
+        }
+    }*/
+
+    ///Escuchar el cambio de click en favorito
+    LaunchedEffect(state.message) {
+        state.message?.let { message ->
+            snackbarHostState.currentSnackbarData?.dismiss()
+            snackbarHostState.showSnackbar(message)
+            vm.onMessageShown()
+        }
+    }
 
     ScreenAppTheme {
         Scaffold(
@@ -67,10 +102,11 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
                 ) {
                     Icon(
                         imageVector = Icons.Default.FavoriteBorder,
-                        contentDescription = "Arrow Favorite"
+                        contentDescription = "Favorite"
                     )
                 }
             },
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
         ) { paddingValues ->
@@ -118,7 +154,10 @@ private fun MovieDetail(
                 Property("Popularity", movie.popularity.toString())
                 Property("Vote Average", movie.voteAverage.toString(), end = true)
             },
-            modifier = Modifier.fillMaxWidth().background(color = MaterialTheme.colorScheme.secondaryContainer).padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = MaterialTheme.colorScheme.secondaryContainer)
+                .padding(16.dp)
         )
     }
 }
