@@ -60,6 +60,10 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
     val lifecycle = LocalLifecycleOwner.current
     val detailState = rememberDetailState()
 
+
+    detailState.ShowMessageEffect(message = state.message) {
+        vm.onMessageShown()
+    }
     /// ESCUCHAR EVENTOS
     /*
     LaunchedEffect(vm, lifecycle) {
