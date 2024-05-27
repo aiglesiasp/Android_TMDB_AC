@@ -62,7 +62,7 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
 
 
     detailState.ShowMessageEffect(message = state.message) {
-        vm.onMessageShown()
+        vm.onAction(DetailAction.MessageShown)
     }
     /// ESCUCHAR EVENTOS
     /*
@@ -92,7 +92,7 @@ fun DetailScreen(vm: DetailViewModel = viewModel(), onBack: () -> Unit) {
             },
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { vm.onFavoriteClick() }
+                    onClick = { vm.onAction(DetailAction.FavoriteClick) }
                 ) {
                     Icon(
                         imageVector = Icons.Default.FavoriteBorder,
