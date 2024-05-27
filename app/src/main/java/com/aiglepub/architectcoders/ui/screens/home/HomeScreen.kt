@@ -45,28 +45,20 @@ import kotlinx.coroutines.launch
 fun HomeScreen(onClick: (Movie) -> Unit,
                vm: HomeViewModel = viewModel()
 ) {
-    val ctx: Context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
+    val homeState = rememberHomeState()
 
-    PermissionRequestEffect(permission = Manifest.permission.ACCESS_COARSE_LOCATION) {granted ->
-        coroutineScope.launch {
-            val region = if(granted) ctx.getRegion() else "US"
-            vm.onUiReady(region)
-        }
-
-    }
-
+    ///Comprobar la region del telefono
+    homeState.AskRegionEffect {region -> vm.onUiReady(region) }
     
     ScreenAppTheme {
-        var scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         Scaffold(
             topBar = {
                 TopAppBar(
                     title = { Text(text = stringResource(id = R.string.app_name)) },
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = homeState.scrollBehavior
                 )
             },
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            modifier = Modifier.nestedScroll(homeState.scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
         ) { paddingValues ->
             val state by vm.state.collectAsState()
