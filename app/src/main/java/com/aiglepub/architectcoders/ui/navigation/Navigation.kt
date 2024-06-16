@@ -41,7 +41,7 @@ fun Navigation() {
         ) {backStackEntry ->
             val detail = backStackEntry.toRoute<Detail>()
             DetailScreen(
-                vm = viewModel { DetailViewModel(detail.movieId) } ,
+                vm = viewModel { DetailViewModel(detail.movieId, moviesRepository) } ,
                 onBack = { navController.popBackStack(route = Home, inclusive = false)}
             )
         }

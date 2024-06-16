@@ -19,9 +19,12 @@ sealed interface DetailAction {
     data object FavoriteClick: DetailAction
     data object MessageShown: DetailAction
 }
-class DetailViewModel(private val id: Int): ViewModel() {
 
-    private val repository = MoviesRepository(MoviesClient.instance)
+
+class DetailViewModel(
+    private val id: Int,
+    private val repository: MoviesRepository
+): ViewModel() {
     //var state by mutableStateOf(UiState())
     //    private set
 
