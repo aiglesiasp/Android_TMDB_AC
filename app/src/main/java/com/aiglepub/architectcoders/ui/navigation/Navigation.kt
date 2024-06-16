@@ -14,6 +14,8 @@ import com.aiglepub.architectcoders.data.MovieService
 import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
+import com.aiglepub.architectcoders.data.datasource.LocationDataSource
+import com.aiglepub.architectcoders.data.datasource.RegionDataSource
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
@@ -25,7 +27,10 @@ import com.aiglepub.architectcoders.ui.screens.home.HomeViewModel
 fun Navigation() {
     val navController = rememberNavController()
     val moviesService = MoviesClient.instance
-    val regionRepository = RegionRepository(LocalContext.current.applicationContext as Application)
+    val aplication = LocalContext.current.applicationContext as Application
+    val locationDataSource = LocationDataSource(aplication)
+    val regionDataSource = RegionDataSource(aplication, locationDataSource)
+    val regionRepository = RegionRepository(regionDataSource)
     val moviesRepository = MoviesRepository(moviesService, regionRepository)
 
     NavHost(navController = navController, startDestination = Home ) {

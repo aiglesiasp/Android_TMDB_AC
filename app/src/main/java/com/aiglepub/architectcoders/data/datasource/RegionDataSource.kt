@@ -1,32 +1,37 @@
-package com.aiglepub.architectcoders.ui.common
+package com.aiglepub.architectcoders.data.datasource
 
-import android.annotation.SuppressLint
+import android.app.Application
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
-import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 
+const val DEFAULT_REGION = "US"
 
-@SuppressLint("MissingPermission")
-suspend fun FusedLocationProviderClient.lastLocation(): Location? {
-    return suspendCancellableCoroutine { continuation ->
-        lastLocation.addOnSuccessListener { location ->
-            continuation.resume(location)
-        }.addOnFailureListener {
-            continuation.resume(null)
-        }
+class RegionDataSource(
+    application: Application,
+    private val locationDataSource: LocationDataSource
+) {
+
+    val geocoder = Geocoder(application)
+
+    suspend fun findLastRegion(): String = locationDataSource.findLastLocation()?.toRegion()  ?: DEFAULT_REGION
+
+    private suspend fun Location.toRegion(): String {
+        val addresses = geocoder.getFromLocationCompat(latitude, longitude, 1)
+        val region = addresses.firstOrNull()?.countryCode
+        return region ?: DEFAULT_REGION
     }
 }
 
 @Suppress("DEPRECATION")
-suspend fun Geocoder.getFromLocationCompat(
+private suspend fun Geocoder.getFromLocationCompat(
     @FloatRange(from = -90.0, to = 90.0) latitude: Double,
     @FloatRange(from = -180.0, to = 180.0) longitude: Double,
     @IntRange maxResults: Int
@@ -35,7 +40,8 @@ suspend fun Geocoder.getFromLocationCompat(
         getFromLocation(latitude, longitude, maxResults) {
             continuation.resume(it)
         }
-    }} else {
+    }
+} else {
     withContext(Dispatchers.IO) {
         getFromLocation(latitude, longitude, maxResults) ?: emptyList()
     }
