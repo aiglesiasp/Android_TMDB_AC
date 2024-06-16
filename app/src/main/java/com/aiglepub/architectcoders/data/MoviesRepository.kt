@@ -1,10 +1,12 @@
 package com.aiglepub.architectcoders.data
 
-class MoviesRepository(private val movieService: MovieService) {
-
-    suspend fun fetchPopularMovies(region: String): List<Movie> =
+class MoviesRepository(
+    private val movieService: MovieService,
+    private val regionRepository: RegionRepository
+) {
+    suspend fun fetchPopularMovies(): List<Movie> =
         movieService
-            .fetchPopularMovies(region)
+            .fetchPopularMovies(regionRepository.findLastRegion())
             .results
             .map { it.toDomainModel() }
 
@@ -26,6 +28,4 @@ private fun RemoteMovie.toDomainModel(): Movie =
         originalLanguage = originalLanguage,
         popularity = popularity,
         voteAverage = voteAverage
-
-
     )

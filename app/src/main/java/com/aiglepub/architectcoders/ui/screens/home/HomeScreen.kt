@@ -1,7 +1,6 @@
 package com.aiglepub.architectcoders.ui.screens.home
 
 import android.Manifest
-import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,15 +17,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,18 +33,17 @@ import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
 import com.aiglepub.architectcoders.ui.common.PermissionRequestEffect
-import com.aiglepub.architectcoders.ui.common.getRegion
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onClick: (Movie) -> Unit,
-               vm: HomeViewModel = viewModel()
+               vm: HomeViewModel
 ) {
     val homeState = rememberHomeState()
-
     ///Comprobar la region del telefono
-    homeState.AskRegionEffect {region -> vm.onUiReady(region) }
+    PermissionRequestEffect(permission = Manifest.permission.ACCESS_COARSE_LOCATION) {
+        vm.onUiReady()
+    }
     
     ScreenAppTheme {
         Scaffold(
