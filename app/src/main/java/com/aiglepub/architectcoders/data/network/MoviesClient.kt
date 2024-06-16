@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.data
+package com.aiglepub.architectcoders.data.network
 
 import com.aiglepub.architectcoders.BuildConfig
 import kotlinx.serialization.json.Json

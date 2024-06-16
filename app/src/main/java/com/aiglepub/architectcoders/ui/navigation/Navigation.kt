@@ -4,18 +4,16 @@ import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import androidx.navigation.toRoute
-import com.aiglepub.architectcoders.data.MovieService
-import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
 import com.aiglepub.architectcoders.data.datasource.LocationDataSource
+import com.aiglepub.architectcoders.data.datasource.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.data.datasource.RegionDataSource
+import com.aiglepub.architectcoders.data.network.MoviesClient
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
@@ -31,7 +29,8 @@ fun Navigation() {
     val locationDataSource = LocationDataSource(aplication)
     val regionDataSource = RegionDataSource(aplication, locationDataSource)
     val regionRepository = RegionRepository(regionDataSource)
-    val moviesRepository = MoviesRepository(moviesService, regionRepository)
+    val moviesRemoteDataSource = MoviesRemoteDataSource(moviesService)
+    val moviesRepository = MoviesRepository(regionRepository, moviesRemoteDataSource)
 
     NavHost(navController = navController, startDestination = Home ) {
         composable<Home>{

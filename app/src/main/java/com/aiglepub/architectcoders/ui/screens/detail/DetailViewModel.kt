@@ -3,14 +3,10 @@ package com.aiglepub.architectcoders.ui.screens.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.data.Movie
-import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 

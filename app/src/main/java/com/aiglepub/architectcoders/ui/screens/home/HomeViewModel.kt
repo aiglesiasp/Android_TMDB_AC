@@ -1,12 +1,8 @@
 package com.aiglepub.architectcoders.ui.screens.home
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.data.Movie
-import com.aiglepub.architectcoders.data.MoviesClient
 import com.aiglepub.architectcoders.data.MoviesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
