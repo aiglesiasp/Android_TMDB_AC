@@ -1,7 +1,6 @@
 package com.aiglepub.architectcoders.ui.common
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -9,29 +8,11 @@ import android.os.Build
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 
-const val DEFAULT_REGION = "US"
-
-//METODO PARA OBTENER LA REGION A TRAVES DE CONTEXTO
-suspend fun Context.getRegion(): String {
-    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-    val location = fusedLocationClient.lastLocation()
-
-    // Aqui recupero la info en ese punto
-    val geocoder = Geocoder(this)
-    val addresses = location?.let {
-        geocoder.getFromLocationCompat(it.latitude, it.longitude, 1)
-    }
-
-    // Obtenemos solo 1 dirección
-    val region = addresses?.firstOrNull()?.countryCode
-    return region ?: DEFAULT_REGION
-}
 
 @SuppressLint("MissingPermission")
 suspend fun FusedLocationProviderClient.lastLocation(): Location? {
