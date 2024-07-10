@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.data.datasource.local
+package com.aiglepub.architectcoders.data.datasource.remote
 
 import android.annotation.SuppressLint
 import android.app.Application

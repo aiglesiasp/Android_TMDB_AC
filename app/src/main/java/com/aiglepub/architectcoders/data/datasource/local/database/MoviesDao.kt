@@ -13,7 +13,7 @@ interface MoviesDao {
     suspend fun getAllMovies(): List<Movie>
 
     @Query("SELECT * FROM Movie WHERE id = :id")
-    suspend fun getMovieById(id: Int): Movie
+    suspend fun getMovieById(id: Int): Movie?
 
     @Query("SELECT COUNT() FROM Movie")
     suspend fun countMovies(): Int

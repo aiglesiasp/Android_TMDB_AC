@@ -8,11 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.aiglepub.architectcoders.App
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
-import com.aiglepub.architectcoders.data.datasource.local.LocationDataSource
+import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
-import com.aiglepub.architectcoders.data.datasource.local.RegionDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
@@ -25,12 +27,18 @@ import com.aiglepub.architectcoders.ui.screens.home.HomeViewModel
 fun Navigation() {
     val navController = rememberNavController()
     val moviesClient = MoviesClient.instance
-    val aplication = LocalContext.current.applicationContext as Application
+    val aplication = LocalContext.current.applicationContext as App
     val locationDataSource = LocationDataSource(aplication)
     val regionDataSource = RegionDataSource(aplication, locationDataSource)
     val regionRepository = RegionRepository(regionDataSource)
     val moviesRemoteDataSource = MoviesRemoteDataSource(moviesClient)
-    val moviesRepository = MoviesRepository(regionRepository, moviesRemoteDataSource)
+
+    val moviesLocalDataSource = MoviesLocalDataSource(aplication.db.moviesDao())
+    val moviesRepository = MoviesRepository(
+        regionRepository,
+        moviesRemoteDataSource,
+        moviesLocalDataSource
+    )
 
     NavHost(navController = navController, startDestination = Home ) {
         composable<Home>{
