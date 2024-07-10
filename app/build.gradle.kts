@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -86,11 +87,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     implementation(libs.coil.compose)
     implementation (libs.androidx.material.icons.extended)
     implementation(libs.androidx.navigation.compose)
     implementation (libs.retrofit)
     implementation(libs.retrofit.converter.kotlinx.serialization)
     implementation(libs.kotlinx.serialization.json)
+
+    //ROOM
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }
