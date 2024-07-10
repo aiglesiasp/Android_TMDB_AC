@@ -1,5 +1,8 @@
 package com.aiglepub.architectcoders.data
 
+import androidx.room.Entity
+
+@Entity
 data class Movie(
     val id: Int,
     val title: String,

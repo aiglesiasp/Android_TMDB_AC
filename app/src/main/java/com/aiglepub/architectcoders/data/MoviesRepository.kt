@@ -1,6 +1,6 @@
 package com.aiglepub.architectcoders.data
 
-import com.aiglepub.architectcoders.data.datasource.MoviesRemoteDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
 
 class MoviesRepository(
     private val regionRepository: RegionRepository,

@@ -10,10 +10,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
-import com.aiglepub.architectcoders.data.datasource.LocationDataSource
-import com.aiglepub.architectcoders.data.datasource.MoviesRemoteDataSource
-import com.aiglepub.architectcoders.data.datasource.RegionDataSource
-import com.aiglepub.architectcoders.data.network.MoviesClient
+import com.aiglepub.architectcoders.data.datasource.local.LocationDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
+import com.aiglepub.architectcoders.data.datasource.local.RegionDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
