@@ -20,7 +20,7 @@ class HomeViewModel(
     // Variable de Estado con Flows
     private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
-
+    
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = UiState(loading = true)

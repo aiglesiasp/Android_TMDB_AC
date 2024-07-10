@@ -47,7 +47,7 @@ import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
 fun DetailScreen(vm: DetailViewModel, onBack: () -> Unit) {
 
     val state by vm.state.collectAsState()
-    val lifecycle = LocalLifecycleOwner.current
+    //val lifecycle = LocalLifecycleOwner.current
     val detailState = rememberDetailState()
 
 

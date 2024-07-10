@@ -39,6 +39,7 @@ fun HomeScreen(onClick: (Movie) -> Unit,
                vm: HomeViewModel
 ) {
     val homeState = rememberHomeState()
+
     ///Comprobar la region del telefono
     PermissionRequestEffect(permission = Manifest.permission.ACCESS_COARSE_LOCATION) {
         vm.onUiReady()

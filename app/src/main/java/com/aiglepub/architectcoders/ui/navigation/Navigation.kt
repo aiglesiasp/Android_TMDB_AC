@@ -24,12 +24,12 @@ import com.aiglepub.architectcoders.ui.screens.home.HomeViewModel
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    val moviesService = MoviesClient.instance
+    val moviesClient = MoviesClient.instance
     val aplication = LocalContext.current.applicationContext as Application
     val locationDataSource = LocationDataSource(aplication)
     val regionDataSource = RegionDataSource(aplication, locationDataSource)
     val regionRepository = RegionRepository(regionDataSource)
-    val moviesRemoteDataSource = MoviesRemoteDataSource(moviesService)
+    val moviesRemoteDataSource = MoviesRemoteDataSource(moviesClient)
     val moviesRepository = MoviesRepository(regionRepository, moviesRemoteDataSource)
 
     NavHost(navController = navController, startDestination = Home ) {

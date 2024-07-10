@@ -24,14 +24,14 @@ class DetailState(
             }
         }
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberDetailState(
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 ): DetailState {
+    //Si cambiar un valor de scroll o snack se vuelve a recargar DetailState, sino no se recargaria nunca
     return remember(scrollBehavior, snackbarHostState) { DetailState(scrollBehavior, snackbarHostState) }
 }

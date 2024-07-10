@@ -58,7 +58,6 @@ class DetailViewModel(
         }
     }
 
-
     private fun onFavoriteClick() {
        // _events.trySend(UiEvent.ShowMessage("Favorite clicked"))
         _state.update { it.copy(message = "Favorite clicked") }
