@@ -24,7 +24,10 @@ class HomeViewModel(
     fun onUiReady() {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(loading = false, movies = repository.fetchPopularMovies())
+            repository.movies.collect { listMovies ->
+                _state.value = UiState(loading = false, movies = listMovies)
+            }
+            //_state.value = UiState(loading = false, movies = repository.fetchPopularMovies())
         }
     }
 
