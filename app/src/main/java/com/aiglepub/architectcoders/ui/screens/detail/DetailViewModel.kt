@@ -5,8 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.data.MoviesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -18,14 +21,26 @@ sealed interface DetailAction {
 
 
 class DetailViewModel(
-    private val id: Int,
+    id: Int,
     private val repository: MoviesRepository
 ): ViewModel() {
+    //STATE ANTIGUO
     //var state by mutableStateOf(UiState())
     //    private set
 
-    private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState())
-    val state: StateFlow<UiState> = _state.asStateFlow()
+    //STATE NUEVO
+    //private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    //val state: StateFlow<UiState> = _state.asStateFlow()
+
+    //TRANSFORMANDO STATE
+    val state: StateFlow<UiState> = repository.findMovieById(id)
+        .map { movie -> UiState(movie = movie) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = UiState(loading = true)
+        )
+
 
     data class UiState(
         val loading: Boolean = false,
@@ -43,7 +58,7 @@ class DetailViewModel(
     val events: Flow<UiEvent> = _events.receiveAsFlow()
     */
 
-    init {
+   /* init {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
             repository.findMovieById(id).collect { movie ->
@@ -51,7 +66,7 @@ class DetailViewModel(
             }
             //_state.value = UiState(loading = false, movie = repository.findMovieById(id))
         }
-    }
+    }*/
 
     ///Creando interface para las acciones
     fun onAction(action: DetailAction) {
