@@ -3,6 +3,7 @@ package com.aiglepub.architectcoders.data
 import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.transform
 
 class MoviesRepository(
@@ -11,12 +12,12 @@ class MoviesRepository(
     private val moviesLocalDataSource: MoviesLocalDataSource
 ) {
 
-    val movies: Flow<List<Movie>> = moviesLocalDataSource.movies.transform { localMovies ->
-        val movies = localMovies.takeIf { it.isNotEmpty() }
-            ?: moviesRemoteDataSource.fetchPopularMovies(regionRepository.findLastRegion()).also {
-                moviesLocalDataSource.insertMovies(it)
-            }
-        emit(movies)
+    val movies: Flow<List<Movie>> = moviesLocalDataSource.movies.onEach { localMovies->
+        if (localMovies.isEmpty()) {
+            val region = regionRepository.findLastRegion()
+            val remoteMovies = moviesRemoteDataSource.fetchPopularMovies(region)
+            moviesLocalDataSource.insertMovies(remoteMovies)
+        }
     }
 
     /*
@@ -30,12 +31,11 @@ class MoviesRepository(
     }
      */
 
-    fun findMovieById(id: Int): Flow<Movie?> = moviesLocalDataSource.getMovieById(id).transform { localMovie ->
-        val movie = localMovie.takeIf { it != null }
-            ?: moviesRemoteDataSource.findMovieById(id).also {
-                moviesLocalDataSource.insertMovies(listOf(it))
-            }
-        emit(movie)
+    fun findMovieById(id: Int): Flow<Movie?> = moviesLocalDataSource.getMovieById(id).onEach { localMovie ->
+        if (localMovie == null) {
+            val remoteMovie = moviesRemoteDataSource.findMovieById(id)
+            moviesLocalDataSource.insertMovies(listOf(remoteMovie))
+        }
     }
 
     /*
