@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 sealed interface DetailAction {
     data object FavoriteClick: DetailAction
-    data object MessageShown: DetailAction
+    //data object MessageShown: DetailAction
 }
 
 
@@ -30,7 +30,7 @@ class DetailViewModel(
     data class UiState(
         val loading: Boolean = false,
         val movie: Movie? = null,
-        val message: String? = null
+        //val message: String? = null
     )
 
     /// EJEMPLO CON EVENTOS
@@ -57,16 +57,22 @@ class DetailViewModel(
     fun onAction(action: DetailAction) {
         when (action) {
             is DetailAction.FavoriteClick -> onFavoriteClick()
-            is DetailAction.MessageShown -> onMessageShown()
+           // is DetailAction.MessageShown -> onMessageShown()
         }
     }
 
     private fun onFavoriteClick() {
-       // _events.trySend(UiEvent.ShowMessage("Favorite clicked"))
-        _state.update { it.copy(message = "Favorite clicked") }
+        //_events.trySend(UiEvent.ShowMessage("Favorite clicked"))
+        //_state.update { it.copy(message = "Favorite clicked") }
+
+        state.value.movie?.let { movie ->
+            viewModelScope.launch {
+                repository.toggleFavorite(movie)
+            }
+        }
     }
 
-    private fun onMessageShown() {
+    /*private fun onMessageShown() {
         _state.update { it.copy(message = null) }
-    }
+    }*/
 }

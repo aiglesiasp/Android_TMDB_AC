@@ -48,4 +48,8 @@ class MoviesRepository(
         return checkNotNull(moviesLocalDataSource.getMovieById(id))
     }
      */
+
+    suspend fun toggleFavorite(movie: Movie) {
+        moviesLocalDataSource.insertMovies(listOf(movie.copy(favorite = !movie.favorite)))
+    }
 }

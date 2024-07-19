@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -51,9 +52,9 @@ fun DetailScreen(vm: DetailViewModel, onBack: () -> Unit) {
     val detailState = rememberDetailState()
 
 
-    detailState.ShowMessageEffect(message = state.message) {
+    /*detailState.ShowMessageEffect(message = state.message) {
         vm.onAction(DetailAction.MessageShown)
-    }
+    } */
     /// ESCUCHAR EVENTOS
     /*
     LaunchedEffect(vm, lifecycle) {
@@ -81,11 +82,12 @@ fun DetailScreen(vm: DetailViewModel, onBack: () -> Unit) {
                 )
             },
             floatingActionButton = {
+                val favorite = state.movie?.favorite ?: false
                 FloatingActionButton(
                     onClick = { vm.onAction(DetailAction.FavoriteClick) }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
+                        imageVector = if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Favorite"
                     )
                 }
