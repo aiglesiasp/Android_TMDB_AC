@@ -36,6 +36,7 @@ import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.R
 import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
+import com.aiglepub.architectcoders.ui.common.AcScaffold
 import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
 import com.aiglepub.architectcoders.ui.common.PermissionRequestEffect
 
@@ -52,21 +53,18 @@ fun HomeScreen(onClick: (Movie) -> Unit,
     }
     
     ScreenAppTheme {
-        Scaffold(
+        val state by vm.state.collectAsState()
+        AcScaffold(
+            state = state,
+            modifier = Modifier.nestedScroll(homeState.scrollBehavior.nestedScrollConnection),
             topBar = {
                 TopAppBar(
                     title = { Text(text = stringResource(id = R.string.app_name)) },
                     scrollBehavior = homeState.scrollBehavior
                 )
             },
-            modifier = Modifier.nestedScroll(homeState.scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
-        ) { paddingValues ->
-            val state by vm.state.collectAsState()
-
-            if(state.loading) {
-               LoadingProgressIndicator(modifier = Modifier.padding(paddingValues))
-            }
+        ) { paddingValues, movies ->
 
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(120.dp),
@@ -75,7 +73,7 @@ fun HomeScreen(onClick: (Movie) -> Unit,
                 modifier = Modifier.padding(horizontal = 4.dp),
                 contentPadding = paddingValues
             ) {
-                items(state.movies) { movie ->
+                items(movies) { movie ->
                     MovieItem(
                         movie = movie,
                         onClick = { onClick(movie) }
@@ -105,7 +103,9 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "Favorito",
                     tint = Color.Red,
-                    modifier = Modifier.padding(8.dp).align(Alignment.TopEnd)
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.TopEnd)
                 )
             }
         }

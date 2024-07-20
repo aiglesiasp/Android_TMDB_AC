@@ -3,8 +3,8 @@ package com.aiglepub.architectcoders.data
 import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.transform
 
 class MoviesRepository(
     private val regionRepository: RegionRepository,
@@ -31,12 +31,12 @@ class MoviesRepository(
     }
      */
 
-    fun findMovieById(id: Int): Flow<Movie?> = moviesLocalDataSource.getMovieById(id).onEach { localMovie ->
+    fun findMovieById(id: Int): Flow<Movie> = moviesLocalDataSource.getMovieById(id).onEach { localMovie ->
         if (localMovie == null) {
             val remoteMovie = moviesRemoteDataSource.findMovieById(id)
             moviesLocalDataSource.insertMovies(listOf(remoteMovie))
         }
-    }
+    }.filterNotNull()
 
     /*
     suspend fun findMovieById(id: Int): Flow<Movie>

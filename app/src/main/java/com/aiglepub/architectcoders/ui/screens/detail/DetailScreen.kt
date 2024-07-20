@@ -18,7 +18,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -37,11 +36,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
-import com.aiglepub.architectcoders.ui.common.LoadingProgressIndicator
+import com.aiglepub.architectcoders.ui.common.AcScaffold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,40 +47,20 @@ fun DetailScreen(vm: DetailViewModel, onBack: () -> Unit) {
 
     val state by vm.state.collectAsState()
     //val lifecycle = LocalLifecycleOwner.current
-    val detailState = rememberDetailState()
-
-
-    /*detailState.ShowMessageEffect(message = state.message) {
-        vm.onAction(DetailAction.MessageShown)
-    } */
-    /// ESCUCHAR EVENTOS
-    /*
-    LaunchedEffect(vm, lifecycle) {
-        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            vm.events.collect { event ->
-                when (event) {
-                    is DetailViewModel.UiEvent.ShowMessage -> {
-                        //Eliminar lo que hubiera en el SnackBar
-                        snackbarHostState.currentSnackbarData?.dismiss()
-                        //Show Message
-                        snackbarHostState.showSnackbar(event.message)
-                    }
-                }
-            }
-        }
-    }*/
+    val detailState = rememberDetailState(state)
 
     ScreenAppTheme {
-        Scaffold(
+        AcScaffold(
+            state = state,
             topBar = {
                 DetailTopBar(
-                    title = state.movie?.title ?: "",
+                    title = detailState.topBarTitle,
                     scrollBehavior = detailState.scrollBehavior,
                     onBack = onBack
                 )
             },
             floatingActionButton = {
-                val favorite = state.movie?.favorite ?: false
+                val favorite = detailState.movie?.favorite ?: false
                 FloatingActionButton(
                     onClick = { vm.onAction(DetailAction.FavoriteClick) }
                 ) {
@@ -95,17 +73,11 @@ fun DetailScreen(vm: DetailViewModel, onBack: () -> Unit) {
             snackbarHost = { SnackbarHost(hostState = detailState.snackbarHostState) },
             modifier = Modifier.nestedScroll(detailState.scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing
-        ) { paddingValues ->
-
-            if(state.loading) {
-                LoadingProgressIndicator(modifier = Modifier.padding(paddingValues))
-            }
-            state.movie?.let { movie ->
-                MovieDetail(
-                    movie = movie,
-                    modifier = Modifier.padding(paddingValues)
-                )
-            }
+        ) { paddingValues, movie ->
+            MovieDetail(
+                movie = movie,
+                modifier = Modifier.padding(paddingValues)
+            )
         }
     }
 }
