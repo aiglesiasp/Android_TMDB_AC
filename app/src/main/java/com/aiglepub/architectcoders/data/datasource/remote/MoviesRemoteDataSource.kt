@@ -1,6 +1,6 @@
 package com.aiglepub.architectcoders.data.datasource.remote
 
-import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.data.datasource.remote.network.MovieService
 import com.aiglepub.architectcoders.data.datasource.remote.network.RemoteMovie
 

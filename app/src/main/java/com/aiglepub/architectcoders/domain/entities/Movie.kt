@@ -1,11 +1,6 @@
-package com.aiglepub.architectcoders.data
+package com.aiglepub.architectcoders.domain.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
 data class Movie(
-    @PrimaryKey(autoGenerate = true)
     val id: Int,
     val title: String,
     val overview: String,
@@ -18,14 +13,3 @@ data class Movie(
     val voteAverage: Double,
     val favorite: Boolean
 )
-
-/*
-val movies = (1..100).map {
-    Movie(
-        id = it,
-        title = "Movie $it",
-        poster = "https://picsum.photos/200/300?id=$it"
-    )
-}
-
- */

@@ -1,6 +1,6 @@
 package com.aiglepub.architectcoders.domain.usecases
 
-import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.data.MoviesRepository
 
 class ToggleFavoriteUseCase(

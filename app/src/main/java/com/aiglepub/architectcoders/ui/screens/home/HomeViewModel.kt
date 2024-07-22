@@ -3,8 +3,7 @@ package com.aiglepub.architectcoders.ui.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.Result
-import com.aiglepub.architectcoders.data.Movie
-import com.aiglepub.architectcoders.data.MoviesRepository
+import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
 import com.aiglepub.architectcoders.stateAsResultIn
 import kotlinx.coroutines.ExperimentalCoroutinesApi

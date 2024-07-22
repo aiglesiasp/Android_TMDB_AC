@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import com.aiglepub.architectcoders.Result
-import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.domain.entities.Movie
 
 @OptIn(ExperimentalMaterial3Api::class)
 class DetailState(

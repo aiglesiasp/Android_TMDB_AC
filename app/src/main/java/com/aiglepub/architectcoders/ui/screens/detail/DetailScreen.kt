@@ -37,7 +37,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.aiglepub.architectcoders.data.Movie
+import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.AcScaffold
 

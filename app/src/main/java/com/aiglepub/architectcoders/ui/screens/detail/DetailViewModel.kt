@@ -3,8 +3,7 @@ package com.aiglepub.architectcoders.ui.screens.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.Result
-import com.aiglepub.architectcoders.data.Movie
-import com.aiglepub.architectcoders.data.MoviesRepository
+import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
 import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
 import com.aiglepub.architectcoders.ifSuccess
