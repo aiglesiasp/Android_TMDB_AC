@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.aiglepub.architectcoders.Result
 import com.aiglepub.architectcoders.data.Movie
 import com.aiglepub.architectcoders.data.MoviesRepository
+import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
+import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
 import com.aiglepub.architectcoders.ifSuccess
 import com.aiglepub.architectcoders.stateAsResultIn
 import kotlinx.coroutines.flow.StateFlow
@@ -16,14 +18,14 @@ sealed interface DetailAction {
     //data object MessageShown: DetailAction
 }
 
-
 class DetailViewModel(
     id: Int,
-    private val repository: MoviesRepository
+    findMovieByIdUseCase: FindMovieByIdUseCase,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase
 ): ViewModel() {
 
     //TRANSFORMANDO STATE
-    val state: StateFlow<Result<Movie>> = repository.findMovieById(id)
+    val state: StateFlow<Result<Movie>> = findMovieByIdUseCase(id)
         .stateAsResultIn(viewModelScope)
 
     ///Creando interface para las acciones
@@ -36,7 +38,7 @@ class DetailViewModel(
     private fun onFavoriteClick() {
         state.value.ifSuccess { movie ->
             viewModelScope.launch {
-                repository.toggleFavorite(movie)
+                toggleFavoriteUseCase(movie)
             }
         }
     }

@@ -16,6 +16,9 @@ import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
+import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
+import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
+import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
@@ -40,12 +43,16 @@ fun Navigation() {
         moviesLocalDataSource
     )
 
+    val fetchMoviesUseCase = FetchMoviesUseCase(moviesRepository)
+    val findMovieByIdUseCase = FindMovieByIdUseCase(moviesRepository)
+    val toggleFavoriteUseCase = ToggleFavoriteUseCase(moviesRepository)
+
     NavHost(navController = navController, startDestination = Home ) {
         composable<Home>{
             HomeScreen(onClick = { movie ->
                     navController.navigate(Detail(movie.id))
                 },
-                vm = viewModel { HomeViewModel(moviesRepository) }
+                vm = viewModel { HomeViewModel(fetchMoviesUseCase) }
             )
         }
 
@@ -53,7 +60,7 @@ fun Navigation() {
         ) {backStackEntry ->
             val detail = backStackEntry.toRoute<Detail>()
             DetailScreen(
-                vm = viewModel { DetailViewModel(detail.movieId, moviesRepository) } ,
+                vm = viewModel { DetailViewModel(detail.movieId, findMovieByIdUseCase, toggleFavoriteUseCase) } ,
                 onBack = { navController.popBackStack(route = Home, inclusive = false)}
             )
         }
