@@ -13,7 +13,7 @@ import com.aiglepub.architectcoders.data.RegionRepository
 import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSourceImpl
 import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSourceImpl
-import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSourceImpl
 import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
 import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
 import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
@@ -31,7 +31,7 @@ fun Navigation() {
     val moviesClient = MoviesClient.instance
     val aplication = LocalContext.current.applicationContext as App
     val locationDataSource = LocationDataSource(aplication)
-    val regionDataSource = RegionDataSource(aplication, locationDataSource)
+    val regionDataSource = RegionDataSourceImpl(aplication, locationDataSource)
     val regionRepository = RegionRepository(regionDataSource)
     val moviesRemoteDataSource = MoviesRemoteDataSourceImpl(moviesClient)
 

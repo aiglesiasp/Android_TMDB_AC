@@ -1,7 +1,7 @@
 package com.aiglepub.architectcoders.data
 
-import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSourceImpl
-import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSourceImpl
+import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.domain.entities.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.onEach
 
 class MoviesRepository(
     private val regionRepository: RegionRepository,
-    private val moviesRemoteDataSource: MoviesRemoteDataSourceImpl,
-    private val moviesLocalDataSource: MoviesLocalDataSourceImpl
+    private val moviesRemoteDataSource: MoviesRemoteDataSource,
+    private val moviesLocalDataSource: MoviesLocalDataSource
 ) {
 
     val movies: Flow<List<Movie>> = moviesLocalDataSource.movies.onEach { localMovies->

@@ -14,16 +14,22 @@ import kotlin.coroutines.resume
 
 const val DEFAULT_REGION = "US"
 
-class RegionDataSource(
+interface RegionDataSource {
+    val geocoder: Geocoder
+    suspend fun findLastRegion(): String
+    suspend fun Location.toRegion(): String
+}
+
+class RegionDataSourceImpl(
     application: Application,
     private val locationDataSource: LocationDataSource
-) {
+) : RegionDataSource {
 
-    val geocoder = Geocoder(application)
+    override val geocoder = Geocoder(application)
 
-    suspend fun findLastRegion(): String = locationDataSource.findLastLocation()?.toRegion()  ?: DEFAULT_REGION
+    override suspend fun findLastRegion(): String = locationDataSource.findLastLocation()?.toRegion()  ?: DEFAULT_REGION
 
-    private suspend fun Location.toRegion(): String {
+    override suspend fun Location.toRegion(): String {
         val addresses = geocoder.getFromLocationCompat(latitude, longitude, 1)
         val region = addresses.firstOrNull()?.countryCode
         return region ?: DEFAULT_REGION
