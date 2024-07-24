@@ -1,6 +1,5 @@
 package com.aiglepub.architectcoders.ui.navigation
 
-import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -11,9 +10,9 @@ import androidx.navigation.toRoute
 import com.aiglepub.architectcoders.App
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
-import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
+import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSourceImpl
 import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
-import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSourceImpl
 import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
 import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
@@ -34,9 +33,9 @@ fun Navigation() {
     val locationDataSource = LocationDataSource(aplication)
     val regionDataSource = RegionDataSource(aplication, locationDataSource)
     val regionRepository = RegionRepository(regionDataSource)
-    val moviesRemoteDataSource = MoviesRemoteDataSource(moviesClient)
+    val moviesRemoteDataSource = MoviesRemoteDataSourceImpl(moviesClient)
 
-    val moviesLocalDataSource = MoviesLocalDataSource(aplication.db.moviesDao())
+    val moviesLocalDataSource = MoviesLocalDataSourceImpl(aplication.db.moviesDao())
     val moviesRepository = MoviesRepository(
         regionRepository,
         moviesRemoteDataSource,

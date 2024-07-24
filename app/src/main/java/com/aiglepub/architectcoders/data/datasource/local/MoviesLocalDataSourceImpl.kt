@@ -5,19 +5,26 @@ import com.aiglepub.architectcoders.data.datasource.local.database.MoviesDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class MoviesLocalDataSource(private var moviesDao: MoviesDao) {
+interface MoviesLocalDataSource {
+    val movies: Flow<List<Movie>>
+    fun getMovieById(id: Int): Flow<Movie?>
+    suspend fun isEmpty(): Boolean
+    suspend fun insertMovies(movies: List<Movie>)
+}
+
+class MoviesLocalDataSourceImpl(private var moviesDao: MoviesDao) : MoviesLocalDataSource {
 
     //GET ALL MOVIES
-    val movies: Flow<List<Movie>> = moviesDao.getAllMovies().map { it.toDomainMovie() }
+    override val movies: Flow<List<Movie>> = moviesDao.getAllMovies().map { it.toDomainMovie() }
 
     //GET MOVIES BY ID
-    fun getMovieById(id: Int): Flow<Movie?> = moviesDao.getMovieById(id).map { it?.toDomainMovie() }
+    override fun getMovieById(id: Int): Flow<Movie?> = moviesDao.getMovieById(id).map { it?.toDomainMovie() }
 
     //GET MOVIES COUNT
-    suspend fun isEmpty() = moviesDao.countMovies() == 0
+    override suspend fun isEmpty() = moviesDao.countMovies() == 0
 
     //INSERT MOVIES
-    suspend fun insertMovies(movies: List<Movie>) = moviesDao.insertMovies(movies.toDbMovie())
+    override suspend fun insertMovies(movies: List<Movie>) = moviesDao.insertMovies(movies.toDbMovie())
 }
 
 private fun MovieDb.toDomainMovie(): Movie {

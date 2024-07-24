@@ -4,16 +4,21 @@ import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.data.datasource.remote.network.MovieService
 import com.aiglepub.architectcoders.data.datasource.remote.network.RemoteMovie
 
-class MoviesRemoteDataSource(
+interface MoviesRemoteDataSource {
+    suspend fun fetchPopularMovies(region: String): List<Movie>
+    suspend fun findMovieById(id: Int): Movie
+}
+
+class MoviesRemoteDataSourceImpl(
     private val movieService: MovieService,
-) {
-    suspend fun fetchPopularMovies(region: String): List<Movie> =
+) : MoviesRemoteDataSource {
+    override suspend fun fetchPopularMovies(region: String): List<Movie> =
         movieService
             .fetchPopularMovies(region = region)
             .results
             .map { it.toDomainModel() }
 
-    suspend fun findMovieById(id: Int): Movie =
+    override suspend fun findMovieById(id: Int): Movie =
         movieService
             .fetchMovieById(id)
             .toDomainModel()
