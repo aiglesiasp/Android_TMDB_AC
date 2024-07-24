@@ -1,8 +1,6 @@
 package com.aiglepub.architectcoders.framework.database
 
-import com.aiglepub.architectcoders.data.datasource.local.MovieDb
 import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
-import com.aiglepub.architectcoders.data.datasource.local.database.MoviesDao
 import com.aiglepub.architectcoders.domain.entities.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

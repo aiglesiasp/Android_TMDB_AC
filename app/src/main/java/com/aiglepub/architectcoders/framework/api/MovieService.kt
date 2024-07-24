@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.data.datasource.remote.network
+package com.aiglepub.architectcoders.framework.api
 
 import retrofit2.http.GET
 import retrofit2.http.Path

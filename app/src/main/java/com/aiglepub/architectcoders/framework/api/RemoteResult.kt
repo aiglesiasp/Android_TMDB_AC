@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.data.datasource.remote.network
+package com.aiglepub.architectcoders.framework.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

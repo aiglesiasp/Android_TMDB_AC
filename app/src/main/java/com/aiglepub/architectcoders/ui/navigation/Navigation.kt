@@ -11,7 +11,7 @@ import androidx.navigation.toRoute
 import com.aiglepub.architectcoders.App
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
-import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
+import com.aiglepub.architectcoders.framework.api.MoviesClient
 import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
 import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
 import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase

@@ -1,11 +1,9 @@
-package com.aiglepub.architectcoders.data.datasource.local.database
+package com.aiglepub.architectcoders.framework.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.aiglepub.architectcoders.data.datasource.local.MovieDb
-import com.aiglepub.architectcoders.domain.entities.Movie
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -2,7 +2,7 @@ package com.aiglepub.architectcoders
 
 import android.app.Application
 import androidx.room.Room
-import com.aiglepub.architectcoders.data.datasource.local.database.MoviesDatabase
+import com.aiglepub.architectcoders.framework.database.MoviesDatabase
 
 class App: Application() {
 
