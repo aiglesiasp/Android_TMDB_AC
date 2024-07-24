@@ -1,14 +1,11 @@
-package com.aiglepub.architectcoders.data.datasource.remote
+package com.aiglepub.architectcoders.framework
 
 import android.annotation.SuppressLint
 import android.location.Location
+import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
-
-interface LocationDataSource {
-    suspend fun findLastLocation(): Location?
-}
 
 class LocationDataSourceImpl(
     private val fusedLocationProviderClient: FusedLocationProviderClient

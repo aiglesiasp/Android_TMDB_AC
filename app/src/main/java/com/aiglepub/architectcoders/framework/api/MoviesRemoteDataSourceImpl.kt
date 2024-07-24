@@ -1,13 +1,9 @@
-package com.aiglepub.architectcoders.data.datasource.remote
+package com.aiglepub.architectcoders.framework.api
 
-import com.aiglepub.architectcoders.domain.entities.Movie
+import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.data.datasource.remote.network.MovieService
 import com.aiglepub.architectcoders.data.datasource.remote.network.RemoteMovie
-
-interface MoviesRemoteDataSource {
-    suspend fun fetchPopularMovies(region: String): List<Movie>
-    suspend fun findMovieById(id: Int): Movie
-}
+import com.aiglepub.architectcoders.domain.entities.Movie
 
 class MoviesRemoteDataSourceImpl(
     private val movieService: MovieService,

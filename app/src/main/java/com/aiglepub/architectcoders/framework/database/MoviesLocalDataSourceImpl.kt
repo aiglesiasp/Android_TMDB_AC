@@ -1,16 +1,11 @@
-package com.aiglepub.architectcoders.data.datasource.local
+package com.aiglepub.architectcoders.framework.database
 
-import com.aiglepub.architectcoders.domain.entities.Movie
+import com.aiglepub.architectcoders.data.datasource.local.MovieDb
+import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSource
 import com.aiglepub.architectcoders.data.datasource.local.database.MoviesDao
+import com.aiglepub.architectcoders.domain.entities.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-
-interface MoviesLocalDataSource {
-    val movies: Flow<List<Movie>>
-    fun getMovieById(id: Int): Flow<Movie?>
-    suspend fun isEmpty(): Boolean
-    suspend fun insertMovies(movies: List<Movie>)
-}
 
 class MoviesLocalDataSourceImpl(private var moviesDao: MoviesDao) : MoviesLocalDataSource {
 
