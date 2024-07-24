@@ -1,6 +1,5 @@
 package com.aiglepub.architectcoders.data.datasource.remote
 
-import android.app.Application
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -14,18 +13,15 @@ import kotlin.coroutines.resume
 
 const val DEFAULT_REGION = "US"
 
-interface RegionDataSource {
-    val geocoder: Geocoder
+interface RegionRemoteDataSource {
     suspend fun findLastRegion(): String
     suspend fun Location.toRegion(): String
 }
 
-class RegionDataSourceImpl(
-    application: Application,
+class RegionRemoteDataSourceImpl(
+    private val geocoder: Geocoder,
     private val locationDataSource: LocationDataSource
-) : RegionDataSource {
-
-    override val geocoder = Geocoder(application)
+) : RegionRemoteDataSource {
 
     override suspend fun findLastRegion(): String = locationDataSource.findLastLocation()?.toRegion()  ?: DEFAULT_REGION
 

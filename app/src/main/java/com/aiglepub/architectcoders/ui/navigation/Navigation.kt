@@ -1,5 +1,6 @@
 package com.aiglepub.architectcoders.ui.navigation
 
+import android.location.Geocoder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -11,9 +12,9 @@ import com.aiglepub.architectcoders.App
 import com.aiglepub.architectcoders.data.MoviesRepository
 import com.aiglepub.architectcoders.data.RegionRepository
 import com.aiglepub.architectcoders.data.datasource.local.MoviesLocalDataSourceImpl
-import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
+import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSourceImpl
 import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSourceImpl
-import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSourceImpl
+import com.aiglepub.architectcoders.data.datasource.remote.RegionRemoteDataSourceImpl
 import com.aiglepub.architectcoders.data.datasource.remote.network.MoviesClient
 import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
 import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
@@ -22,6 +23,7 @@ import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
 import com.aiglepub.architectcoders.ui.screens.home.HomeViewModel
+import com.google.android.gms.location.LocationServices
 
 
 ///METODO DE NAVEGACION CON NAVIGATION COMPOSE
@@ -30,8 +32,11 @@ fun Navigation() {
     val navController = rememberNavController()
     val moviesClient = MoviesClient.instance
     val aplication = LocalContext.current.applicationContext as App
-    val locationDataSource = LocationDataSource(aplication)
-    val regionDataSource = RegionDataSourceImpl(aplication, locationDataSource)
+    val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(aplication)
+    val geocoder = Geocoder(aplication)
+
+    val locationDataSource = LocationDataSourceImpl(fusedLocationProviderClient)
+    val regionDataSource = RegionRemoteDataSourceImpl(geocoder, locationDataSource)
     val regionRepository = RegionRepository(regionDataSource)
     val moviesRemoteDataSource = MoviesRemoteDataSourceImpl(moviesClient)
 

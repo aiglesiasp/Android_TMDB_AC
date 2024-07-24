@@ -1,20 +1,20 @@
 package com.aiglepub.architectcoders.data.datasource.remote
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-class LocationDataSource(
-    application: Application
-) {
-    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
+interface LocationDataSource {
+    suspend fun findLastLocation(): Location?
+}
 
-    suspend fun findLastLocation(): Location? = fusedLocationClient.lastLocation()
+class LocationDataSourceImpl(
+    private val fusedLocationProviderClient: FusedLocationProviderClient
+) : LocationDataSource {
 
+    override suspend fun findLastLocation(): Location? = fusedLocationProviderClient.lastLocation()
 }
 
 @SuppressLint("MissingPermission")
