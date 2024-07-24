@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.data.datasource.local
+package com.aiglepub.architectcoders.data.local
 
 import com.aiglepub.architectcoders.domain.entities.Movie
 import kotlinx.coroutines.flow.Flow

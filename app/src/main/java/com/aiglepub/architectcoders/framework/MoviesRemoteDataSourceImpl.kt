@@ -1,7 +1,9 @@
-package com.aiglepub.architectcoders.framework.api
+package com.aiglepub.architectcoders.framework
 
-import com.aiglepub.architectcoders.data.datasource.remote.MoviesRemoteDataSource
+import com.aiglepub.architectcoders.data.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.domain.entities.Movie
+import com.aiglepub.architectcoders.framework.api.MovieService
+import com.aiglepub.architectcoders.framework.api.RemoteMovie
 
 class MoviesRemoteDataSourceImpl(
     private val movieService: MovieService,

@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.data.datasource.remote
+package com.aiglepub.architectcoders.data.remote
 
 import android.location.Location
 

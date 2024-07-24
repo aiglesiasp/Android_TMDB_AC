@@ -6,8 +6,8 @@ import android.location.Location
 import android.os.Build
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
-import com.aiglepub.architectcoders.data.datasource.remote.LocationDataSource
-import com.aiglepub.architectcoders.data.datasource.remote.RegionDataSource
+import com.aiglepub.architectcoders.data.remote.LocationDataSource
+import com.aiglepub.architectcoders.data.remote.RegionDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext

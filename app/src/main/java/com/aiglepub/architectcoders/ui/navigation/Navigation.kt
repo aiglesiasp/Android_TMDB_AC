@@ -17,8 +17,8 @@ import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
 import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
 import com.aiglepub.architectcoders.framework.LocationDataSourceImpl
 import com.aiglepub.architectcoders.framework.RegionRemoteDataSourceImpl
-import com.aiglepub.architectcoders.framework.api.MoviesRemoteDataSourceImpl
-import com.aiglepub.architectcoders.framework.database.MoviesLocalDataSourceImpl
+import com.aiglepub.architectcoders.framework.MoviesRemoteDataSourceImpl
+import com.aiglepub.architectcoders.framework.MoviesLocalDataSourceImpl
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
