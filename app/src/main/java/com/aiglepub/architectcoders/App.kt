@@ -1,10 +1,12 @@
 package com.aiglepub.architectcoders
 
 import android.app.Application
-import androidx.room.Room
-import com.aiglepub.architectcoders.framework.database.MoviesDatabase
+import dagger.hilt.android.HiltAndroidApp
 
-class App: Application() {
+@HiltAndroidApp
+class App: Application()
+
+/* {
 
     lateinit var db: MoviesDatabase
         private set
@@ -15,4 +17,4 @@ class App: Application() {
         db = Room.databaseBuilder(this, MoviesDatabase::class.java, "movies-db")
             .build()
     }
-}
+}*/
