@@ -40,10 +40,14 @@ import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.AcScaffold
+import androidx.hilt.navigation.compose.hiltViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(vm: DetailViewModel, onBack: () -> Unit) {
+fun DetailScreen(
+    vm: DetailViewModel = hiltViewModel(),
+    onBack: () -> Unit) {
 
     val state by vm.state.collectAsState()
     //val lifecycle = LocalLifecycleOwner.current

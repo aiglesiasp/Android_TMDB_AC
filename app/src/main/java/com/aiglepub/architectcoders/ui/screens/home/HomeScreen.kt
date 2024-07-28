@@ -31,6 +31,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.R
 import com.aiglepub.architectcoders.domain.entities.Movie
@@ -40,8 +41,9 @@ import com.aiglepub.architectcoders.ui.common.PermissionRequestEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onClick: (Movie) -> Unit,
-               vm: HomeViewModel
+fun HomeScreen(
+    vm: HomeViewModel = hiltViewModel(),
+    onClick: (Movie) -> Unit
 ) {
     val homeState = rememberHomeState()
 
