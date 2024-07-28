@@ -9,19 +9,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.aiglepub.architectcoders.App
-import com.aiglepub.architectcoders.data.MoviesRepository
-import com.aiglepub.architectcoders.data.RegionRepository
-import com.aiglepub.architectcoders.framework.api.MoviesClient
+import com.aiglepub.architectcoders.domain.MoviesRepository
+import com.aiglepub.architectcoders.domain.RegionRepository
 import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
 import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
 import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
 import com.aiglepub.architectcoders.framework.LocationDataSourceImpl
-import com.aiglepub.architectcoders.framework.RegionRemoteDataSourceImpl
-import com.aiglepub.architectcoders.framework.MoviesRemoteDataSourceImpl
 import com.aiglepub.architectcoders.framework.MoviesLocalDataSourceImpl
+import com.aiglepub.architectcoders.framework.MoviesRemoteDataSourceImpl
+import com.aiglepub.architectcoders.framework.RegionRemoteDataSourceImpl
+import com.aiglepub.architectcoders.framework.api.MoviesClient
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
-import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
+import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
 import com.aiglepub.architectcoders.ui.screens.home.HomeViewModel
 import com.google.android.gms.location.LocationServices
 
@@ -30,43 +30,16 @@ import com.google.android.gms.location.LocationServices
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    val moviesClient = MoviesClient.instance
-    val aplication = LocalContext.current.applicationContext as App
-    val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(aplication)
-    val geocoder = Geocoder(aplication)
-
-    val locationDataSource = LocationDataSourceImpl(fusedLocationProviderClient)
-    val regionDataSource = RegionRemoteDataSourceImpl(geocoder, locationDataSource)
-    val regionRepository = RegionRepository(regionDataSource)
-    val moviesRemoteDataSource = MoviesRemoteDataSourceImpl(moviesClient)
-
-    val moviesLocalDataSource = MoviesLocalDataSourceImpl(aplication.db.moviesDao())
-    val moviesRepository = MoviesRepository(
-        regionRepository,
-        moviesRemoteDataSource,
-        moviesLocalDataSource
-    )
-
-    val fetchMoviesUseCase = FetchMoviesUseCase(moviesRepository)
-    val findMovieByIdUseCase = FindMovieByIdUseCase(moviesRepository)
-    val toggleFavoriteUseCase = ToggleFavoriteUseCase(moviesRepository)
 
     NavHost(navController = navController, startDestination = Home ) {
         composable<Home>{
-            HomeScreen(onClick = { movie ->
-                    navController.navigate(Detail(movie.id))
-                },
-                vm = viewModel { HomeViewModel(fetchMoviesUseCase) }
-            )
+            HomeScreen(onClick = { movie -> navController.navigate(Detail(movie.id)) })
         }
 
         composable<Detail>(
         ) {backStackEntry ->
             val detail = backStackEntry.toRoute<Detail>()
-            DetailScreen(
-                vm = viewModel { DetailViewModel(detail.movieId, findMovieByIdUseCase, toggleFavoriteUseCase) } ,
-                onBack = { navController.popBackStack(route = Home, inclusive = false)}
-            )
+            DetailScreen(onBack = { navController.popBackStack(route = Home, inclusive = false)})
         }
     }
 }
