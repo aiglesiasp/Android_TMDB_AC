@@ -5,9 +5,10 @@ import android.location.Location
 import com.aiglepub.architectcoders.data.remote.LocationDataSource
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
-class LocationDataSourceImpl(
+class LocationDataSourceImpl @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient
 ) : LocationDataSource {
 

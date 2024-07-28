@@ -4,8 +4,9 @@ import com.aiglepub.architectcoders.data.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.framework.api.MovieService
 import com.aiglepub.architectcoders.framework.api.RemoteMovie
+import javax.inject.Inject
 
-class MoviesRemoteDataSourceImpl(
+class MoviesRemoteDataSourceImpl @Inject constructor(
     private val movieService: MovieService,
 ) : MoviesRemoteDataSource {
     override suspend fun fetchPopularMovies(region: String): List<Movie> =

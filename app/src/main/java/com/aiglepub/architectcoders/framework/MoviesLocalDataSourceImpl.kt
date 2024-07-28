@@ -6,8 +6,11 @@ import com.aiglepub.architectcoders.framework.database.MovieDb
 import com.aiglepub.architectcoders.framework.database.MoviesDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class MoviesLocalDataSourceImpl(private var moviesDao: MoviesDao) : MoviesLocalDataSource {
+class MoviesLocalDataSourceImpl @Inject constructor(
+    private var moviesDao: MoviesDao
+) : MoviesLocalDataSource {
 
     //GET ALL MOVIES
     override val movies: Flow<List<Movie>> = moviesDao.getAllMovies().map { it.toDomainMovie() }
