@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
-
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -99,4 +99,9 @@ dependencies {
     //ROOM
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    //HILT
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 }
+
