@@ -1,9 +1,9 @@
-package com.aiglepub.architectcoders.framework
+package com.aiglepub.architectcoders.framework.local
 
 import com.aiglepub.architectcoders.data.local.MoviesLocalDataSource
 import com.aiglepub.architectcoders.domain.entities.Movie
-import com.aiglepub.architectcoders.framework.database.MovieDb
-import com.aiglepub.architectcoders.framework.database.MoviesDao
+import com.aiglepub.architectcoders.framework.local.database.MovieDb
+import com.aiglepub.architectcoders.framework.local.database.MoviesDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

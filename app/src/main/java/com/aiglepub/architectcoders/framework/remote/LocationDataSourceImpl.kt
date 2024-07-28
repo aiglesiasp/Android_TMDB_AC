@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.framework
+package com.aiglepub.architectcoders.framework.remote
 
 import android.annotation.SuppressLint
 import android.location.Location

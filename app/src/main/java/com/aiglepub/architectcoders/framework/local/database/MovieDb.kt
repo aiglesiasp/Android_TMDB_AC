@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.framework.database
+package com.aiglepub.architectcoders.framework.local.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

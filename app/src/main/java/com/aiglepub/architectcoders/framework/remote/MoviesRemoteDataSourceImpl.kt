@@ -1,9 +1,9 @@
-package com.aiglepub.architectcoders.framework
+package com.aiglepub.architectcoders.framework.remote
 
 import com.aiglepub.architectcoders.data.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.domain.entities.Movie
-import com.aiglepub.architectcoders.framework.api.MovieService
-import com.aiglepub.architectcoders.framework.api.RemoteMovie
+import com.aiglepub.architectcoders.framework.remote.api.MovieService
+import com.aiglepub.architectcoders.framework.remote.api.RemoteMovie
 import javax.inject.Inject
 
 class MoviesRemoteDataSourceImpl @Inject constructor(

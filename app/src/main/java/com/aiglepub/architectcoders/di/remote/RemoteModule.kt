@@ -3,9 +3,9 @@ package com.aiglepub.architectcoders.di.remote
 import com.aiglepub.architectcoders.data.remote.LocationDataSource
 import com.aiglepub.architectcoders.data.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.data.remote.RegionDataSource
-import com.aiglepub.architectcoders.framework.LocationDataSourceImpl
-import com.aiglepub.architectcoders.framework.MoviesRemoteDataSourceImpl
-import com.aiglepub.architectcoders.framework.RegionRemoteDataSourceImpl
+import com.aiglepub.architectcoders.framework.remote.LocationDataSourceImpl
+import com.aiglepub.architectcoders.framework.remote.MoviesRemoteDataSourceImpl
+import com.aiglepub.architectcoders.framework.remote.RegionRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

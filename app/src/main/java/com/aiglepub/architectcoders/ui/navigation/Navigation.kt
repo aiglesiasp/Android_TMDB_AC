@@ -1,29 +1,12 @@
 package com.aiglepub.architectcoders.ui.navigation
 
-import android.location.Geocoder
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.aiglepub.architectcoders.App
-import com.aiglepub.architectcoders.domain.MoviesRepository
-import com.aiglepub.architectcoders.domain.RegionRepository
-import com.aiglepub.architectcoders.domain.usecases.FetchMoviesUseCase
-import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
-import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
-import com.aiglepub.architectcoders.framework.LocationDataSourceImpl
-import com.aiglepub.architectcoders.framework.MoviesLocalDataSourceImpl
-import com.aiglepub.architectcoders.framework.MoviesRemoteDataSourceImpl
-import com.aiglepub.architectcoders.framework.RegionRemoteDataSourceImpl
-import com.aiglepub.architectcoders.framework.api.MoviesClient
 import com.aiglepub.architectcoders.ui.screens.detail.DetailScreen
-import com.aiglepub.architectcoders.ui.screens.detail.DetailViewModel
 import com.aiglepub.architectcoders.ui.screens.home.HomeScreen
-import com.aiglepub.architectcoders.ui.screens.home.HomeViewModel
-import com.google.android.gms.location.LocationServices
 
 
 ///METODO DE NAVEGACION CON NAVIGATION COMPOSE

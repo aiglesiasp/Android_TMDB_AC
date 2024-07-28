@@ -2,7 +2,7 @@ package com.aiglepub.architectcoders.di.local.database
 
 import android.content.Context
 import androidx.room.Room
-import com.aiglepub.architectcoders.framework.database.MoviesDatabase
+import com.aiglepub.architectcoders.framework.local.database.MoviesDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

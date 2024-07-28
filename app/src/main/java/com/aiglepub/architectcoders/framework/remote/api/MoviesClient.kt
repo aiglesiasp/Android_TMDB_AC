@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.framework.api
+package com.aiglepub.architectcoders.framework.remote.api
 
 import com.aiglepub.architectcoders.BuildConfig
 import kotlinx.serialization.json.Json

@@ -2,8 +2,8 @@ package com.aiglepub.architectcoders.di.remote.network
 
 import android.content.Context
 import android.location.Geocoder
-import com.aiglepub.architectcoders.framework.api.MovieService
-import com.aiglepub.architectcoders.framework.api.MoviesClient
+import com.aiglepub.architectcoders.framework.remote.api.MovieService
+import com.aiglepub.architectcoders.framework.remote.api.MoviesClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module

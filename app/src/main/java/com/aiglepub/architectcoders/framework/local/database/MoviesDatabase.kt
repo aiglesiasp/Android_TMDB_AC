@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.framework.database
+package com.aiglepub.architectcoders.framework.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,7 +1,7 @@
 package com.aiglepub.architectcoders.di.local
 
 import com.aiglepub.architectcoders.data.local.MoviesLocalDataSource
-import com.aiglepub.architectcoders.framework.MoviesLocalDataSourceImpl
+import com.aiglepub.architectcoders.framework.local.MoviesLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

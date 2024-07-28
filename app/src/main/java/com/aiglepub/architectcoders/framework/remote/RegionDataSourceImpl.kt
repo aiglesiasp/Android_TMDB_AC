@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.framework
+package com.aiglepub.architectcoders.framework.remote
 
 import android.location.Address
 import android.location.Geocoder
