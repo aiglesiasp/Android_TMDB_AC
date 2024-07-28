@@ -8,8 +8,10 @@ import com.aiglepub.architectcoders.domain.usecases.FindMovieByIdUseCase
 import com.aiglepub.architectcoders.domain.usecases.ToggleFavoriteUseCase
 import com.aiglepub.architectcoders.ifSuccess
 import com.aiglepub.architectcoders.stateAsResultIn
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 sealed interface DetailAction {
@@ -17,7 +19,8 @@ sealed interface DetailAction {
     //data object MessageShown: DetailAction
 }
 
-class DetailViewModel(
+@HiltViewModel
+class DetailViewModel @Inject constructor(
     id: Int,
     findMovieByIdUseCase: FindMovieByIdUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase
