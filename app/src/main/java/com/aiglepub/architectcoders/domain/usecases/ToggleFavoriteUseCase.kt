@@ -1,9 +1,10 @@
 package com.aiglepub.architectcoders.domain.usecases
 
+import com.aiglepub.architectcoders.domain.MoviesRepository
 import com.aiglepub.architectcoders.domain.entities.Movie
-import com.aiglepub.architectcoders.data.MoviesRepository
+import javax.inject.Inject
 
-class ToggleFavoriteUseCase(
+class ToggleFavoriteUseCase @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) {
     suspend operator fun invoke(movie: Movie) {
