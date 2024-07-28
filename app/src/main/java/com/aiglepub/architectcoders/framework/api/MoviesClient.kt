@@ -9,7 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
-object MoviesClient {
+class MoviesClient(
+    private val apiKey: String,
+) {
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor { apiKeyAsQuery(it) }
