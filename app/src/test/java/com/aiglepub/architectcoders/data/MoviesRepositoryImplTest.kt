@@ -5,8 +5,8 @@ import com.aiglepub.architectcoders.data.remote.MoviesRemoteDataSource
 import com.aiglepub.architectcoders.domain.MoviesRepository
 import com.aiglepub.architectcoders.domain.RegionRepository
 import com.aiglepub.architectcoders.domain.entities.Movie
-import com.aiglepub.architectcoders.domain.usecases.generateListMovies
-import com.aiglepub.architectcoders.domain.usecases.generateSampleMovie
+import com.aiglepub.architectcoders.helpers.generateListMovies
+import com.aiglepub.architectcoders.helpers.generateSampleMovie
 import com.aiglepub.architectcoders.framework.remote.DEFAULT_REGION
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf

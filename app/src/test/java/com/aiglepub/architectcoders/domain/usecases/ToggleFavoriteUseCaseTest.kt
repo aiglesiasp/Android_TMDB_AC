@@ -1,11 +1,9 @@
 package com.aiglepub.architectcoders.domain.usecases
 
 import com.aiglepub.architectcoders.domain.MoviesRepository
-import kotlinx.coroutines.flow.flowOf
+import com.aiglepub.architectcoders.helpers.generateSampleMovie
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 

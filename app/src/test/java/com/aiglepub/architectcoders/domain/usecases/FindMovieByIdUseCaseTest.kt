@@ -1,5 +1,6 @@
 package com.aiglepub.architectcoders.domain.usecases
 
+import com.aiglepub.architectcoders.helpers.generateSampleMovie
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.*
 import org.junit.Test

@@ -1,6 +1,6 @@
 package com.aiglepub.architectcoders.domain.usecases
 
-import com.aiglepub.architectcoders.domain.entities.Movie
+import com.aiglepub.architectcoders.helpers.generateListMovies
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.aiglepub.architectcoders.domain.usecases
+package com.aiglepub.architectcoders.helpers
 
 import com.aiglepub.architectcoders.domain.entities.Movie
 
