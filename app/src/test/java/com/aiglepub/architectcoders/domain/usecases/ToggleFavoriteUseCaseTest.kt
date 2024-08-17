@@ -11,7 +11,7 @@ import org.mockito.kotlin.verify
 
 class ToggleFavoriteUseCaseTest {
     @Test
-    fun `Invoke should change movie favorite from repository`() = runBlocking {
+    fun `Invoke should change movie favorite from repository`(): Unit = runBlocking {
         //GIVEN
         val movie = generateSampleMovie(1)
         val repository = mock<MoviesRepository>()
