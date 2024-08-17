@@ -23,7 +23,7 @@ class RegionRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun findLastRegion(): String = locationDataSource.findLastLocation()?.toRegion()  ?: DEFAULT_REGION
 
-    override suspend fun Location.toRegion(): String {
+    private suspend fun Location.toRegion(): String {
         val addresses = geocoder.getFromLocationCompat(latitude, longitude, 1)
         val region = addresses.firstOrNull()?.countryCode
         return region ?: DEFAULT_REGION
