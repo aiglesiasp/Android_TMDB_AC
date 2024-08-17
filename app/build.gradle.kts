@@ -90,6 +90,8 @@ dependencies {
 
     //ROOM
     implementation(libs.androidx.room.ktx)
+    androidTestImplementation(project(":app"))
+    androidTestImplementation(project(":app"))
     ksp(libs.androidx.room.compiler)
 
     //HILT

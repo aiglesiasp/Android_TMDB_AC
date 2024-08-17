@@ -34,26 +34,41 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.aiglepub.architectcoders.R
+import com.aiglepub.architectcoders.Result
 import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.AcScaffold
 import com.aiglepub.architectcoders.ui.common.PermissionRequestEffect
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     vm: HomeViewModel = hiltViewModel(),
     onClick: (Movie) -> Unit
 ) {
-    val homeState = rememberHomeState()
 
     ///Comprobar la region del telefono
     PermissionRequestEffect(permission = Manifest.permission.ACCESS_COARSE_LOCATION) {
         vm.onUiReady()
     }
-    
+
+    val state by vm.state.collectAsState()
+
+    HomeScreen(
+        state = state,
+        onClick = onClick
+    )
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    state: Result<List<Movie>>,
+    onClick: (Movie) -> Unit
+) {
+    val homeState = rememberHomeState()
+
     ScreenAppTheme {
-        val state by vm.state.collectAsState()
         AcScaffold(
             state = state,
             modifier = Modifier.nestedScroll(homeState.scrollBehavior.nestedScrollConnection),
