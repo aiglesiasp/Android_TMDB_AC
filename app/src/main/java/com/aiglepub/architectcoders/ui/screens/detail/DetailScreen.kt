@@ -41,16 +41,29 @@ import com.aiglepub.architectcoders.domain.entities.Movie
 import com.aiglepub.architectcoders.ui.ScreenAppTheme
 import com.aiglepub.architectcoders.ui.common.AcScaffold
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.aiglepub.architectcoders.Result
 
+@Composable
+fun DetailScreen(
+    vm: DetailViewModel = hiltViewModel(),
+    onBack: () -> Unit
+) {
+    val state by vm.state.collectAsState()
+    DetailScreen(
+        state = state,
+        onBack = onBack,
+        onFavoriteClick = { vm.onAction(DetailAction.FavoriteClick) }
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
-    vm: DetailViewModel = hiltViewModel(),
-    onBack: () -> Unit) {
+    state: Result<Movie>,
+    onBack: () -> Unit,
+    onFavoriteClick: () -> Unit
+) {
 
-    val state by vm.state.collectAsState()
-    //val lifecycle = LocalLifecycleOwner.current
     val detailState = rememberDetailState(state)
 
     ScreenAppTheme {
@@ -66,7 +79,7 @@ fun DetailScreen(
             floatingActionButton = {
                 val favorite = detailState.movie?.favorite ?: false
                 FloatingActionButton(
-                    onClick = { vm.onAction(DetailAction.FavoriteClick) }
+                    onClick = { onFavoriteClick() }
                 ) {
                     Icon(
                         imageVector = if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
