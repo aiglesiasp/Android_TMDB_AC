@@ -111,5 +111,11 @@ dependencies {
     //TESTING MOCKITO
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
+
+    //TESTING TURBINE y TEST COROUTINES
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.test.rules)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
 
