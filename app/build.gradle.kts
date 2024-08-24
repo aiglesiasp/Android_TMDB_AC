@@ -20,7 +20,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.aiglepub.architectcoders.di.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -126,7 +126,7 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.core)
-    
+
     androidTestImplementation(libs.androidx.room.ktx)
     kspAndroidTest(libs.androidx.room.compiler)
 
